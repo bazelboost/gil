@@ -40,3 +40,7 @@ graph_info.json
 # clangd
 compile_commands.json
 .clangd/
+
+# bazel
+/bazel-*
+!*.bazel

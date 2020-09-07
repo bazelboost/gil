@@ -1,0 +1,38 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+_public_hdrs = [
+    "include/boost/*.hpp",
+    "include/boost/gil/*.hpp",
+    "include/boost/gil/concepts/*.hpp",
+    "include/boost/gil/extension/*.hpp",
+    "include/boost/gil/extension/dynamic_image/*.hpp",
+    "include/boost/gil/extension/io/*.hpp",
+    "include/boost/gil/extension/io/bmp/*.hpp",
+    "include/boost/gil/extension/io/jpeg/*.hpp",
+    "include/boost/gil/extension/io/png/*.hpp",
+    "include/boost/gil/extension/io/pnm/*.hpp",
+    "include/boost/gil/extension/io/raw/*.hpp",
+    "include/boost/gil/extension/io/targa/*.hpp",
+    "include/boost/gil/extension/io/tiff/*.hpp",
+    "include/boost/gil/extension/numeric/*.hpp",
+    "include/boost/gil/extension/toolbox/*.hpp",
+    "include/boost/gil/extension/toolbox/color_converters/*.hpp",
+    "include/boost/gil/extension/toolbox/color_spaces/*.hpp",
+    "include/boost/gil/extension/toolbox/image_types/*.hpp",
+    "include/boost/gil/extension/toolbox/metafunctions/*.hpp",
+    "include/boost/gil/image_processing/*.hpp",
+    "include/boost/gil/io/*.hpp",
+]
+
+cc_library(
+    name = "gil_internal",
+    hdrs = glob(["include/boost/**/*.hpp"], exclude = _public_hdrs),
+)
+
+cc_library(
+    name = "gil",
+    visibility = ["//visibility:public"],
+    includes = ["include"],
+    hdrs = glob(_public_hdrs),
+    deps = [":gil_internal"],
+)
